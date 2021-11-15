@@ -1,0 +1,129 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+  @media ($desktop-size) {
+    padding-bottom: 50px;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+%card {
+  box-shadow: $box-shadow;
+  border-radius: 8px;
+  background-color: white;
+  padding: 1rem;
+  margin-bottom: 4rem;
+}
+
+.crime-card {
+  @extend %card;
+
+  @media ($desktop-size) {
+    margin: 20px;
+  }
+}
+
+.crime-card-only-desktop {
+  @extend %card;
+  margin: 20px;
+
+  @media ($mobile-size) {
+    box-shadow: none;
+    border-radius: 0;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.crime-title,
+.crime-title-with-subtitle {
+  margin: 0;
+  font-size: 1.5rem;
+  color: $font-color;
+  font-weight: bold;
+}
+
+.crime-title {
+  margin-bottom: 2rem;
+}
+
+.crime-title-with-subtitle {
+  margin-bottom: 0.5rem;
+}
+
+.crime-title,
+.crime-title-with-subtitle,
+.subtitle {
+  text-align: justify;
+}
+
+.crime-subtitle {
+  margin: 0;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  color: $font-color;
+  font-weight: 600;
+}
+
+.crime-shadow {
+  box-shadow: $box-shadow;
+}
+
+.crime-only-desktop {
+  display: none;
+
+  @media ($desktop-size) {
+    display: inherit;
+  }
+}
+
+.crime-is-fullwidth {
+  width: 100%;
+}
+
+.crime-pos-flex {
+  display: flex;
+}
+
+.crime-non-button {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+}
+
+.crime-pos-column {
+  flex-direction: column;
+}
+
+.crime-pos-mobile-column {
+  @media ($mobile-size) {
+    flex-direction: column;
+  }
+}
+
+.crime-pos-center-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.crime-pos-center-around {
+  align-items: center;
+  justify-content: space-around;
+}
+
+.crime-pos-column {
+  flex-direction: column;
+}
