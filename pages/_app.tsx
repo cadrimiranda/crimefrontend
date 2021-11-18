@@ -4,13 +4,14 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import type { AppProps } from "next/app";
 import { ConfigProvider } from "antd";
 import locale from "antd/lib/locale/pt_BR";
-
-import React from "react";
+import { Provider as UseFetchProvider } from "use-http";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ConfigProvider locale={locale}>
-      <Component {...pageProps} />
+      <UseFetchProvider url={process.env.NEXT_PUBLIC_SERVICE_URL || ""}>
+        <Component {...pageProps} />
+      </UseFetchProvider>
     </ConfigProvider>
   );
 }

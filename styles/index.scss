@@ -15,10 +15,14 @@
   align-items: center;
 }
 
+.dropdown-overlay,
+.crime-filter-container {
+  z-index: 99999;
+}
+
 .crime-filter-container {
   position: sticky;
   top: 0;
-  z-index: 99999;
   padding: 5px 20px 10px;
   background-color: white;
   box-shadow: $box-shadow;
@@ -132,6 +136,7 @@
 
   .crime-button-icon-percentage-list {
     width: 100%;
+    margin-top: 5px;
 
     .crime-list-item {
       &:first-child {
