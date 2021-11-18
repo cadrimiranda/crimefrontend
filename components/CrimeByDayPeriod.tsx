@@ -58,7 +58,7 @@ const CrimeByDayPeriod = () => {
       </h1>
       <div className="crime-day-period crime-pos-flex crime-pos-center-around">
         {mappedData.map((x) => (
-          <CrimeByDayTime {...x} />
+          <CrimeByDayTime key={x.dayTime} {...x} />
         ))}
       </div>
     </div>
