@@ -1,15 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "use-http";
 
-const useEffectRequester = <T>(url: string, dependencies: any[] = []) => {
+const useEffectRequester = <T, U = any>(
+  url: string,
+  mapper?: (data: T) => U,
+  dependencies: any[] = []
+) => {
+  // @ts-ignore
+  const [state, setState] = useState<U>([]);
   const fetchResponse = useFetch<T>(url);
-  const { get } = fetchResponse;
+  const { get, data } = fetchResponse;
 
   useEffect(() => {
     get();
   }, dependencies);
 
-  return fetchResponse;
+  useEffect(() => {
+    if (data && mapper) {
+      const mapped = mapper(data);
+      setState(mapped);
+    }
+  }, [data]);
+
+  return { ...fetchResponse, mappedData: state };
 };
 
 export { useEffectRequester };
