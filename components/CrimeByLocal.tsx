@@ -1,20 +1,28 @@
+import { useEffectRequester } from "../hooks/useEffectRequester";
 import { CrimeByData } from "./CrimeByData";
 
-const fakeData = [
-  { local: "Residência", percentagem: 30 },
-  { local: "Comércio", percentagem: 10 },
-  { local: "Via pública", percentagem: 15 },
-  { local: "Restaurante e afins", percentagem: 5 },
-  { local: "Unidade rural", percentagem: 40 },
-];
+type TResponse = {
+  DESCRICAOLOCAL: string;
+  AMOUNT: number;
+}[];
+
+type TData = {
+  Local: string;
+  Quantidade: number;
+}[];
 
 const CrimeByLocal = () => {
+  const { mappedData } = useEffectRequester<TResponse, TData>(
+    "/get_locals_crime",
+    (data) => data.map((x) => ({ Quantidade: x.AMOUNT, Local: x.DESCRICAOLOCAL }))
+  );
+
   return (
     <CrimeByData
-      data={fakeData}
-      xField="local"
-      yField="percentagem"
-      title="Porcentagem de crimes cometidos nos locais das cidades"
+      data={mappedData}
+      xField="Local"
+      yField="Quantidade"
+      title="Quantidade de crimes cometidos nos locais das cidades"
     />
   );
 };
