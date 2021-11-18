@@ -10,13 +10,8 @@ const { Option } = Select;
 const { Search } = Input;
 
 const Filters = () => {
-  const {
-    get,
-    data: citiesData,
-    loading,
-  } = useFetch<{ cities: string[] }>("/get_list_cities");
-
-  useEffectRequester(get);
+  const { data: citiesData, loading } =
+    useEffectRequester<{ cities: string[] }>("/get_list_cities");
 
   return (
     <Grid className="crime-filter-container" container spacing={1}>

@@ -1,15 +1,15 @@
 import { useMemo } from "react";
 
-type CrimeType = "morning" | "afternoon" | "night" | "dawn";
+export type CrimeType = "morning" | "afternoon" | "night" | "dawn" | "unknow" | 'uncertain';
 
 const CrimeByDayTime = ({
   dayTime,
   crimeCount,
-  percentage
+  percentage,
 }: {
   dayTime: CrimeType;
   crimeCount: number;
-  percentage: number
+  percentage: number;
 }) => {
   const getCrimeIcon = useMemo(() => {
     if (dayTime === "morning") {
@@ -22,6 +22,14 @@ const CrimeByDayTime = ({
 
     if (dayTime === "dawn") {
       return "bi bi-sunrise";
+    }
+
+    if (dayTime === "uncertain") {
+      return "bi bi-slash-circle";
+    }
+
+    if (dayTime === 'unknow') {
+      return 'bi bi-arrow-clockwise'
     }
 
     return "bi bi-moon";
