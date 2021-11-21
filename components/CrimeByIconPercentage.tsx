@@ -1,6 +1,7 @@
-import { MouseEvent, useEffect, useState } from "react";
+import React, { MouseEvent, useEffect, useState } from "react";
+import { CrimeByVehicleModal } from "./CrimeByVehicleModal";
 
-type TDataExpand = {
+export type TDataExpand = {
   name: string;
   qtd: number;
   percentage: number;
@@ -17,12 +18,15 @@ const CrimeByIconPercentage = ({
   qtd,
   dataExpand,
 }: ICrimeByIconPercentage) => {
+  const [open, setOpen] = useState(false);
   const [listHeight, setListHeight] = useState(0);
   const [expanded, setExpanded] = useState(false);
 
   function handleExpand(e: MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
-    setExpanded(!expanded);
+    if (!open) {
+      setExpanded(!expanded);
+    }
   }
 
   useEffect(() => {
@@ -51,12 +55,30 @@ const CrimeByIconPercentage = ({
         }}
         className="crime-button-icon-percentage-list"
       >
-        {dataExpand.map((x) => (
-          <li className="crime-list-item" key={x.qtd}>
-            <span className="crime-list-item-name">{`${x.name}: `}</span>
-            <span className="crime-list-item-description">{`${x.qtd} (${x.percentage}%)`}</span>
-          </li>
-        ))}
+        {dataExpand
+          .filter((x) => x.percentage > 0)
+          .map((x) => (
+            <li className="crime-list-item" key={x.qtd}>
+              <span className="crime-list-item-name">{`${x.name}: `}</span>
+              <span className="crime-list-item-description">{`${x.qtd} (${x.percentage}%)`}</span>
+            </li>
+          ))}
+        <li className="see-more">
+          <span
+            onClick={(e: React.MouseEvent<HTMLSpanElement>) => {
+              e.stopPropagation();
+              e.preventDefault();
+              setOpen(true);
+            }}
+          >
+            Veja mais
+          </span>
+          <CrimeByVehicleModal
+            data={dataExpand}
+            onClose={() => setOpen(false)}
+            isOpen={open}
+          />
+        </li>
       </ul>
     </button>
   );

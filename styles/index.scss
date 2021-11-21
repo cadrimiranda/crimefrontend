@@ -3,6 +3,8 @@
 
 @import "./dataCircle.scss";
 
+$zindex: 99999;
+
 .mymap {
   height: 270px;
 }
@@ -15,9 +17,14 @@
   align-items: center;
 }
 
+.ant-modal-root {
+  position: absolute;
+  z-index: $zindex + 1;
+}
+
 .dropdown-overlay,
 .crime-filter-container {
-  z-index: 99999;
+  z-index: $zindex;
 }
 
 .crime-filter-container {
@@ -120,7 +127,7 @@
 .crime-button-icon-percentage {
   border: 1px solid $gray-color;
   border-radius: 8px;
-  margin: 8px 15%;
+  margin: 8px 5%;
   padding: 8px;
   overflow: hidden;
   transition: height 0.5s ease-in-out;
@@ -129,32 +136,8 @@
 
   @media (min-width: 600px) {
     margin: 0;
-    margin: 1% 5%;
-    width: 23%;
-    max-width: 25%;
-  }
-
-  .crime-button-icon-percentage-list {
-    width: 100%;
-    margin-top: 5px;
-
-    .crime-list-item {
-      &:first-child {
-        border-top: 1px solid $gray-dark;
-        padding-top: 6px;
-      }
-
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      margin-bottom: 6px;
-
-      .crime-list-item-name {
-        font-weight: bolder;
-      }
-
-      color: $gray-dark;
-    }
+    margin: 1% 1%;
+    width: 28%;
   }
 
   .material-icons {
@@ -168,8 +151,53 @@
     font-size: 24px;
   }
 
-  .crime-button-icon-percentage-list {
-    list-style: none;
-    padding: 0;
+  .see-more {
+    margin: 10px 15%;
+    display: flex;
+    
+    span {
+      padding: 10px 0;
+      border: 1px solid $gray-color;
+      border-radius: 6px;
+      color: $gray-dark;
+      font-weight: bolder;
+      width: 100%;
+    }
   }
+}
+
+.crime-button-icon-percentage-list {
+  width: 100%;
+  margin-top: 5px;
+  list-style: none;
+  padding: 0;
+
+  .crime-list-item {
+    &:first-child {
+      border-top: 1px solid $gray-dark;
+      padding-top: 6px;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+
+    .crime-list-item-name {
+      font-weight: bolder;
+    }
+
+    color: $gray-dark;
+  }
+
+  .crime-list-item-noborder {
+    &:first-child {
+      border: none;
+    }
+  }
+}
+
+.ant-modal-body {
+  height: 600px;
+  overflow: auto;
 }

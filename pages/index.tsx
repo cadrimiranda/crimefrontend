@@ -75,7 +75,7 @@ export default function Home() {
         />
       </Head>
 
-      <main className="main">
+      <main id="main" className="main">
         <Filters />
         <div className="mymap" id="my-map" />
         <Grid container className="crime-content-data">
@@ -97,11 +97,8 @@ export default function Home() {
           <Grid item xs={12} md={6}>
             <CrimeByLocal />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
             <CrimeByVehicle />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <CrimeByBrand />
           </Grid>
         </Grid>
       </main>
