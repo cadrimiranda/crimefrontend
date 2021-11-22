@@ -1,8 +1,9 @@
 import { useEffectRequester } from "../hooks/useEffectRequester";
 import { CrimeByDayTime, CrimeType } from "./CrimeByDayTime";
+import { PeriodoOcorrenciaEnum } from "./Filters";
 
 type TResponse = {
-  PERIDOOCORRENCIA: string;
+  PERIDOOCORRENCIA: PeriodoOcorrenciaEnum;
   AMOUNT: number;
 }[];
 
@@ -10,7 +11,7 @@ type itemDefault = {
   percentage: number;
   crimeCount: number;
   dayTime: CrimeType;
-  period: string;
+  period: PeriodoOcorrenciaEnum;
 };
 
 const CrimeByDayPeriod = () => {
@@ -18,13 +19,13 @@ const CrimeByDayPeriod = () => {
     period: string
   ): { dayTime: CrimeType; order: number } => {
     switch (period) {
-      case "A NOITE":
+      case PeriodoOcorrenciaEnum.aNoite:
         return { order: 4, dayTime: "night" };
-      case "A TARDE":
+      case PeriodoOcorrenciaEnum.aTarde:
         return { order: 3, dayTime: "afternoon" };
-      case "DE MADRUGADA":
+      case PeriodoOcorrenciaEnum.deMadrugada:
         return { order: 1, dayTime: "dawn" };
-      case "PELA MANHÃ":
+      case PeriodoOcorrenciaEnum.pelaManha:
         return { order: 2, dayTime: "morning" };
       default:
         return { order: 5, dayTime: "uncertain" };

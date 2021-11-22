@@ -1,28 +1,24 @@
-import { DatePicker, Input, Select } from "antd";
+import { DatePicker, Select } from "antd";
 import Grid from "@mui/material/Grid";
-import { useEffect } from "react";
-import useSWR from "swr";
-import useFetch from "use-http";
 import { useEffectRequester } from "../hooks/useEffectRequester";
 import { useFilterContext } from "./FilterProvider";
 
-const { RangePicker, YearPicker } = DatePicker;
+const { RangePicker } = DatePicker;
 const { Option } = Select;
-const { Search } = Input;
 
-enum CrimeEnum {
+export enum CrimeEnum {
   btnFurtoCelular = "btnFurtoCelular",
   btnFurtoVeiculo = "btnFurtoVeiculo",
   btnRouboCelular = "btnRouboCelular",
   btnRouboVeiculo = "btnRouboVeiculo",
 }
 
-enum PeriodoOcorrenciaEnum {
-  deMadrugada = "De Madrugada",
-  pelaManha = "Pela Manhã",
-  aTarde = "A Tarde",
-  aNoite = "A Noite",
-  emHoraIncerta = "Em Hora Incerta",
+export enum PeriodoOcorrenciaEnum {
+  deMadrugada = "DE MADRUGADA",
+  pelaManha = "PELA MANHÃ",
+  aTarde = "A TARDE",
+  aNoite = "A NOITE",
+  emHoraIncerta = "EM HORA INCERTA",
 }
 
 const Filters = () => {
@@ -45,7 +41,9 @@ const Filters = () => {
           allowClear
         >
           {citiesData?.cities.map((x) => (
-            <Option key={x} value={x}>{x}</Option>
+            <Option key={x} value={x}>
+              {x}
+            </Option>
           ))}
         </Select>
       </Grid>
