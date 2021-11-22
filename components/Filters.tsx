@@ -45,7 +45,7 @@ const Filters = () => {
           allowClear
         >
           {citiesData?.cities.map((x) => (
-            <Option value={x}>{x}</Option>
+            <Option key={x} value={x}>{x}</Option>
           ))}
         </Select>
       </Grid>
