@@ -12,7 +12,7 @@ const useEffectRequester = <T, U = any>(
   const [state, setState] = useState<U>(mappedDataDefault);
   const fetchResponse = useFetch<T>();
   const { get, data } = fetchResponse;
-  const { city, type, period } = useFilterContext();
+  const { city, type, period, rangeEnd, rangeStart } = useFilterContext();
 
   useEffect(() => {
     let hasFilter = false;
@@ -46,8 +46,20 @@ const useEffectRequester = <T, U = any>(
       hasFilter = true;
     }
 
+    if (rangeStart) {
+      finalUrl = addInterrogative(finalUrl);
+      finalUrl += `start_year=${rangeStart}`;
+      hasFilter = true;
+    }
+
+    if (rangeEnd) {
+      finalUrl = addInterrogative(finalUrl);
+      finalUrl += `end_year=${rangeEnd}`;
+      hasFilter = true;
+    }
+
     get(finalUrl);
-  }, [...dependencies, city, type, period]);
+  }, [...dependencies, city, type, period, rangeEnd, rangeStart]);
 
   useEffect(() => {
     if (data && mapper) {

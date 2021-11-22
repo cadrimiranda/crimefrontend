@@ -6,7 +6,7 @@ import useFetch from "use-http";
 import { useEffectRequester } from "../hooks/useEffectRequester";
 import { useFilterContext } from "./FilterProvider";
 
-const { RangePicker } = DatePicker;
+const { RangePicker, YearPicker } = DatePicker;
 const { Option } = Select;
 const { Search } = Input;
 
@@ -28,7 +28,8 @@ enum PeriodoOcorrenciaEnum {
 const Filters = () => {
   const { data: citiesData, loading } =
     useEffectRequester<{ cities: string[] }>("/get_list_cities");
-  const { setCity, setType, setPeriod } = useFilterContext();
+  const { setCity, setType, setPeriod, setRangeEnd, setRangeStart, period } =
+    useFilterContext();
 
   return (
     <Grid className="crime-filter-container" container spacing={1}>
@@ -36,11 +37,12 @@ const Filters = () => {
         <Select
           dropdownClassName="dropdown-overlay"
           className="crime-is-fullwidth"
-          placeholder={process.env.NEXT_PUBLIC_SERVICE_URL}
+          placeholder="Cidade"
           loading={loading}
           onChange={(e: string) => {
             setCity(e);
           }}
+          allowClear
         >
           {citiesData?.cities.map((x) => (
             <Option value={x}>{x}</Option>
@@ -48,10 +50,23 @@ const Filters = () => {
         </Select>
       </Grid>
       <Grid item xs={12} md={3}>
-        <RangePicker format="D/MM/YYYY" className="crime-is-fullwidth" />
+        <RangePicker
+          allowClear
+          onChange={(e) => {
+            // @ts-ignore
+            const [begin, end] = e;
+            setRangeStart(begin.year());
+            setRangeEnd(end.year());
+          }}
+          dropdownClassName="dropdown-overlay"
+          picker="year"
+          format="YYYY"
+          className="crime-is-fullwidth"
+        />
       </Grid>
       <Grid item xs={12} md={3}>
         <Select
+          allowClear
           onChange={(e: string) => {
             setType(e);
           }}
@@ -67,6 +82,7 @@ const Filters = () => {
       </Grid>
       <Grid item xs={12} md={3}>
         <Select
+          allowClear
           onChange={(e: string) => {
             setPeriod(e);
           }}
