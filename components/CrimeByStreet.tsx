@@ -24,7 +24,7 @@ const CrimeByStreet = () => {
       data={mappedData}
       xField="Logradouro"
       yField="Quantidade"
-      title="Top 10 ruas com a maior quantidade de registros de roubos"
+      title="Top ruas com a maior quantidade de registros de roubos"
     />
   );
 };

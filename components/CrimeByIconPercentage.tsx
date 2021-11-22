@@ -24,15 +24,20 @@ const CrimeByIconPercentage = ({
 
   function handleExpand(e: MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
-    if (!open) {
+    if (!open && dataExpand.length > 0) {
       setExpanded(!expanded);
     }
   }
 
   useEffect(() => {
+    if (dataExpand.length === 0) {
+      setExpanded(false);
+    }
+  }, [dataExpand]);
+
+  useEffect(() => {
     if (navigator.userAgent) {
       const { userAgent } = navigator;
-      console.log({ userAgent });
       if (!userAgent.includes("Mobile")) {
         setExpanded(true);
       }

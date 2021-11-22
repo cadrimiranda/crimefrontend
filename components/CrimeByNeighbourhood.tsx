@@ -23,7 +23,7 @@ const CrimeByNeighbourhood = () => {
       data={mappedData}
       xField="Bairro"
       yField="Quantidade"
-      title="Top 10 bairros com a maior quantidade de registros de roubos"
+      title="Top bairros com a maior quantidade de registros de roubos"
     />
   );
 };

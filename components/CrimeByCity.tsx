@@ -20,7 +20,7 @@ const CrimeByCity = () => {
       data={mappedData}
       xField="Cidade"
       yField="Quantidade"
-      title="Top 10 cidades com a maior quantidade de registros de roubos"
+      title="Top cidades com a maior quantidade de registros de roubos"
     />
   );
 };

@@ -4,14 +4,31 @@ import { useEffect } from "react";
 import useSWR from "swr";
 import useFetch from "use-http";
 import { useEffectRequester } from "../hooks/useEffectRequester";
+import { useFilterContext } from "./FilterProvider";
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 const { Search } = Input;
 
+enum CrimeEnum {
+  btnFurtoCelular = "btnFurtoCelular",
+  btnFurtoVeiculo = "btnFurtoVeiculo",
+  btnRouboCelular = "btnRouboCelular",
+  btnRouboVeiculo = "btnRouboVeiculo",
+}
+
+enum PeriodoOcorrenciaEnum {
+  deMadrugada = "De Madrugada",
+  pelaManha = "Pela Manhã",
+  aTarde = "A Tarde",
+  aNoite = "A Noite",
+  emHoraIncerta = "Em Hora Incerta",
+}
+
 const Filters = () => {
   const { data: citiesData, loading } =
     useEffectRequester<{ cities: string[] }>("/get_list_cities");
+  const { setCity, setType, setPeriod } = useFilterContext();
 
   return (
     <Grid className="crime-filter-container" container spacing={1}>
@@ -21,30 +38,51 @@ const Filters = () => {
           className="crime-is-fullwidth"
           placeholder={process.env.NEXT_PUBLIC_SERVICE_URL}
           loading={loading}
+          onChange={(e: string) => {
+            setCity(e);
+          }}
         >
-          {citiesData?.cities.map((x, i) => (
-            <Option value={`${x}${i}`}>{x}</Option>
+          {citiesData?.cities.map((x) => (
+            <Option value={x}>{x}</Option>
           ))}
         </Select>
       </Grid>
-      <Grid item xs={12} md={4}>
-        <Search placeholder="Endereço" allowClear />
-      </Grid>
-      <Grid item xs={12} md={2}>
+      <Grid item xs={12} md={3}>
         <RangePicker format="D/MM/YYYY" className="crime-is-fullwidth" />
       </Grid>
       <Grid item xs={12} md={3}>
         <Select
+          onChange={(e: string) => {
+            setType(e);
+          }}
           dropdownClassName="dropdown-overlay"
           className="crime-is-fullwidth"
           placeholder="Tipo de crime"
         >
-          <Option value="time">Time</Option>
-          <Option value="date">Date</Option>
-          <Option value="week">Week</Option>
-          <Option value="month">Month</Option>
-          <Option value="quarter">Quarter</Option>
-          <Option value="year">Year</Option>
+          <Option value={CrimeEnum.btnFurtoCelular}>Furto Celuluar</Option>
+          <Option value={CrimeEnum.btnFurtoVeiculo}>Furto Veículo</Option>
+          <Option value={CrimeEnum.btnRouboCelular}>Roubo Celuluar</Option>
+          <Option value={CrimeEnum.btnRouboVeiculo}>Roubo Veículo</Option>
+        </Select>
+      </Grid>
+      <Grid item xs={12} md={3}>
+        <Select
+          onChange={(e: string) => {
+            setPeriod(e);
+          }}
+          dropdownClassName="dropdown-overlay"
+          className="crime-is-fullwidth"
+          placeholder="Periodo Ocorrencia"
+        >
+          <Option value={PeriodoOcorrenciaEnum.deMadrugada}>
+            De Madrugada
+          </Option>
+          <Option value={PeriodoOcorrenciaEnum.pelaManha}>Pela Manhã</Option>
+          <Option value={PeriodoOcorrenciaEnum.aTarde}>A Tarde</Option>
+          <Option value={PeriodoOcorrenciaEnum.aNoite}>A Noite</Option>
+          <Option value={PeriodoOcorrenciaEnum.emHoraIncerta}>
+            Em Hora Incerta
+          </Option>
         </Select>
       </Grid>
     </Grid>
