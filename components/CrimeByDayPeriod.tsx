@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useEffectRequester } from "../hooks/useEffectRequester";
 import { CrimeByDayTime, CrimeType } from "./CrimeByDayTime";
 
@@ -11,6 +10,7 @@ type itemDefault = {
   percentage: number;
   crimeCount: number;
   dayTime: CrimeType;
+  period: string;
 };
 
 const CrimeByDayPeriod = () => {
@@ -30,9 +30,11 @@ const CrimeByDayPeriod = () => {
         return { order: 5, dayTime: "uncertain" };
     }
   };
+
   const mapData = (data: TResponse) => {
     const sum = data.reduce((acc, next) => acc + next.AMOUNT, 0);
     const final = data.map((x) => ({
+      period: x.PERIDOOCORRENCIA,
       crimeCount: x.AMOUNT,
       percentage: Math.round((x.AMOUNT * 100) / sum),
       ...getDayTime(x.PERIDOOCORRENCIA),

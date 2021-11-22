@@ -108,6 +108,10 @@ $zindex: 99999;
     font-weight: 700;
   }
 
+  .crime-daytime-period {
+    font-size: 0.7rem;
+  }
+
   @media ($desktop-size) {
     width: auto;
 
@@ -154,7 +158,7 @@ $zindex: 99999;
   .see-more {
     margin: 10px 15%;
     display: flex;
-    
+
     span {
       padding: 10px 0;
       border: 1px solid $gray-color;
@@ -200,4 +204,10 @@ $zindex: 99999;
 .ant-modal-body {
   height: 600px;
   overflow: auto;
+}
+
+@media ($mobile-size) {
+  .ant-picker-panels {
+    flex-direction: column;
+  }
 }
