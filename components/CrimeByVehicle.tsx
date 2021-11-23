@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useEffectRequester } from "../hooks/useEffectRequester";
 import { CrimeByIconPercentage } from "./CrimeByIconPercentage";
 
@@ -39,30 +40,30 @@ type TDataExpanded = {
 };
 
 const CrimeByVehicle = () => {
-  const { mappedData } = useEffectRequester<TResponse, TData>(
-    "/get_crime_vehicles_type",
-    (data) => {
-      let tot = 0;
-      const res = data
-        .map((x) => {
-          tot += x.AMOUNT;
+  const { mappedData, loading: loadingPercentage } = useEffectRequester<
+    TResponse,
+    TData
+  >("/get_crime_vehicles_type", (data) => {
+    let tot = 0;
+    const res = data
+      .map((x) => {
+        tot += x.AMOUNT;
 
-          return {
-            quantity: x.AMOUNT,
-            type: x.DESCR_TIPO_VEICULO,
-            percentage: 0,
-          };
-        })
-        .map((x) => ({
-          ...x,
-          percentage: Math.round((x.quantity * 100) / tot),
-        }));
+        return {
+          quantity: x.AMOUNT,
+          type: x.DESCR_TIPO_VEICULO,
+          percentage: 0,
+        };
+      })
+      .map((x) => ({
+        ...x,
+        percentage: Math.round((x.quantity * 100) / tot),
+      }));
 
-      return res;
-    }
-  );
+    return res;
+  });
 
-  const { mappedData: expanded } = useEffectRequester<
+  const { mappedData: expanded, loading: loadingExpanded } = useEffectRequester<
     TResponseExpanded,
     TDataExpanded
   >(
@@ -121,6 +122,7 @@ const CrimeByVehicle = () => {
       </h2>
       <div className="crime-data-expand-wrap crime-pos-flex crime-pos-mobile-column">
         <CrimeByIconPercentage
+          loading={loadingExpanded || loadingPercentage}
           dataExpand={expanded.Caminhão || []}
           icon="local_shipping"
           qtd={
@@ -129,6 +131,7 @@ const CrimeByVehicle = () => {
           }
         />
         <CrimeByIconPercentage
+          loading={loadingExpanded || loadingPercentage}
           dataExpand={expanded.Carro || []}
           icon="directions_car"
           qtd={
@@ -137,6 +140,7 @@ const CrimeByVehicle = () => {
           }
         />
         <CrimeByIconPercentage
+          loading={loadingExpanded || loadingPercentage}
           dataExpand={expanded.Moto || []}
           icon="two_wheeler"
           qtd={
