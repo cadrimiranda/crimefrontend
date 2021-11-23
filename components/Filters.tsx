@@ -36,6 +36,7 @@ const Filters = () => {
           className="crime-is-fullwidth"
           placeholder="Cidade"
           loading={loading}
+          showSearch
           onChange={(e: string) => {
             setCity(e);
           }}
