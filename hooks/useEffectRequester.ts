@@ -5,6 +5,7 @@ import { useFilterContext } from "../components/FilterProvider";
 const useEffectRequester = <T, U = any>(
   url: string,
   mapper?: (data: T) => U,
+  noFilterSearch: boolean = false,
   mappedDataDefault: any = [],
   dependencies: any[] = []
 ) => {
@@ -15,6 +16,14 @@ const useEffectRequester = <T, U = any>(
   const { city, type, period, rangeEnd, rangeStart } = useFilterContext();
 
   useEffect(() => {
+    if (!data) {
+      return;
+    }
+
+    if (noFilterSearch) {
+      return;
+    }
+
     let hasFilter = false;
     let finalUrl = url;
     finalUrl.repeat;
@@ -59,7 +68,11 @@ const useEffectRequester = <T, U = any>(
     }
 
     get(finalUrl);
-  }, [...dependencies, city, type, period, rangeEnd, rangeStart]);
+  }, [city, type, period, rangeEnd, rangeStart]);
+
+  useEffect(() => {
+    get(url);
+  }, [...dependencies]);
 
   useEffect(() => {
     if (data && mapper) {

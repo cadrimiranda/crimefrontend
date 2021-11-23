@@ -90,7 +90,6 @@ $zindex: 99999;
       min-width: calc(100% / 5);
     }
   }
-
 }
 
 .crime-bydaytime {
@@ -217,4 +216,15 @@ $zindex: 99999;
   .ant-picker-panels {
     flex-direction: column;
   }
+}
+
+.crime-load-graph {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.55);
+  z-index: 100;
 }

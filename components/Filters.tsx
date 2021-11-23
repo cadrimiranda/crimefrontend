@@ -22,8 +22,9 @@ export enum PeriodoOcorrenciaEnum {
 }
 
 const Filters = () => {
-  const { data: citiesData, loading } =
-    useEffectRequester<{ cities: string[] }>("/get_list_cities");
+  const { data: citiesData, loading } = useEffectRequester<{
+    cities: string[];
+  }>("/get_list_cities", () => {}, true);
   const { setCity, setType, setPeriod, setRangeEnd, setRangeStart, period } =
     useFilterContext();
 

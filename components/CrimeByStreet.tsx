@@ -13,7 +13,7 @@ type TData = {
 }[];
 
 const CrimeByStreet = () => {
-  const { mappedData } = useEffectRequester<TResponse, TData>(
+  const { mappedData, loading } = useEffectRequester<TResponse, TData>(
     "/get_street_crime",
     (data) =>
       data.map((x) => ({ Quantidade: x.AMOUNT, Logradouro: x.LOGRADOURO }))
@@ -21,6 +21,7 @@ const CrimeByStreet = () => {
 
   return (
     <CrimeByData
+      loading={loading}
       data={mappedData}
       xField="Logradouro"
       yField="Quantidade"

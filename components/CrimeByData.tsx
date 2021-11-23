@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { ColumnConfig } from "@ant-design/charts";
+import Spin from "antd/lib/spin";
 
 const Column = dynamic<ColumnConfig>(
   () => import("@ant-design/charts").then((mod) => mod.Column) as any,
@@ -12,27 +13,43 @@ interface ICrimeByData {
   xField: string;
   yField: string;
   title: string;
+  loading: boolean;
 }
 
-const CrimeByData = ({ data, xField, yField, title }: ICrimeByData) => {
+const LoadingGraphic = () => (
+  <div className="crime-load-graph">
+    <Spin />
+  </div>
+);
+
+const CrimeByData = ({
+  data,
+  xField,
+  yField,
+  title,
+  loading,
+}: ICrimeByData) => {
+  useEffect(() => {
+    console.log({ loading, xField });
+  }, [loading]);
   return (
     <div className="crime-card">
       <h1 className="crime-title">{title}</h1>
-      <Column
-        data={data}
-        xField={xField}
-        yField={yField}
-        xAxis={{ label: { autoRotate: true } }}
-        scrollbar={{ type: "horizontal" }}
-        columnStyle={{
-          lineWidth: 10,
-          width: 10,
-        }}
-        legend={{
-          layout: "vertical",
-          flipPage: true,
-        }}
-      />
+      <div style={{ position: "relative" }}>
+        {loading && <LoadingGraphic />}
+        <Column
+          autoFit
+          data={data}
+          xField={xField}
+          yField={yField}
+          xAxis={{ label: { autoRotate: true } }}
+          scrollbar={{ type: "horizontal" }}
+          columnStyle={{
+            lineWidth: 10,
+            width: 10,
+          }}
+        />
+      </div>
     </div>
   );
 };

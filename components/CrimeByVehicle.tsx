@@ -106,6 +106,7 @@ const CrimeByVehicle = () => {
 
       return res;
     },
+    false,
     {},
     [mappedData.length]
   );
