@@ -49,9 +49,11 @@ const CrimeByDayPeriod = () => {
     });
   };
 
-  const { mappedData } = useEffectRequester<TResponse, itemDefault[]>(
+  const { mappedData, loading } = useEffectRequester<TResponse, itemDefault[]>(
     "/get_amount_crime_period",
-    mapData
+    mapData,
+    false,
+    [{}, {}, {}, {}, {}]
   );
 
   return (
@@ -61,7 +63,7 @@ const CrimeByDayPeriod = () => {
       </h1>
       <div className="crime-day-period crime-pos-flex crime-pos-center-around">
         {mappedData.map((x) => (
-          <CrimeByDayTime key={x.dayTime} {...x} />
+          <CrimeByDayTime key={x.dayTime} loading={loading} {...x} />
         ))}
       </div>
     </div>
