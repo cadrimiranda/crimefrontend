@@ -63,7 +63,7 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>Crimes e furtos na sua região</title>
         <link rel="icon" href="/favicon.ico" />
         <link
           href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
