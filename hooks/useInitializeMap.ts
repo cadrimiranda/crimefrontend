@@ -1,4 +1,5 @@
-export function initializeMap(mapboxgl: any, map: any) {
+const useInitializeMap = () => {
+  function initializeMap(mapboxgl: any, map: any) {
     map.on("click", "data", function (e: any) {
       var features = map.queryRenderedFeatures(e.point, {
         layers: ["data"],
@@ -14,7 +15,7 @@ export function initializeMap(mapboxgl: any, map: any) {
           });
         });
     });
-  
+
     map.on("click", "unclustered-point", function (e: any) {
       var coordinates = e.features[0].geometry.coordinates.slice();
       var mag = e.features[0].properties.mag;
@@ -40,7 +41,7 @@ export function initializeMap(mapboxgl: any, map: any) {
         trackUserLocation: true,
       })
     );
-  
+
     map.on("mouseenter", "data", function () {
       map.getCanvas().style.cursor = "pointer";
     });
@@ -48,3 +49,8 @@ export function initializeMap(mapboxgl: any, map: any) {
       map.getCanvas().style.cursor = "";
     });
   }
+
+  return initializeMap;
+};
+
+export { useInitializeMap };

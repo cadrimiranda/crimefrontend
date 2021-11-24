@@ -13,6 +13,12 @@ export enum CrimeEnum {
   btnRouboVeiculo = "btnRouboVeiculo",
 }
 
+export type TypeCrime =
+  | CrimeEnum.btnFurtoCelular
+  | CrimeEnum.btnFurtoVeiculo
+  | CrimeEnum.btnRouboCelular
+  | CrimeEnum.btnRouboVeiculo;
+
 export enum PeriodoOcorrenciaEnum {
   deMadrugada = "DE MADRUGADA",
   pelaManha = "PELA MANHÃ",

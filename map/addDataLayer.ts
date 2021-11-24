@@ -1,103 +1,132 @@
-export async function addDataLayer(map: any, data: any) {
-  if (!map.getSource("earthquakes")) {
-    map.addSource("earthquakes", {
+import mapboxgl from "mapbox-gl";
+import { TMapboxHeatData } from "../components/CrimeMap";
+
+export type TOptions = {
+  minAmount: number;
+  maxAmount: number;
+};
+
+export async function addDataLayer(
+  map: mapboxgl.Map,
+  data: TMapboxHeatData,
+  options: TOptions
+) {
+  console.log({ data, options });
+  if (!map.getSource("trees")) {
+    map.addSource("trees", {
       type: "geojson",
       data: data,
     });
   } else {
-    map.getSource("earthquakes").setData(data);
+    // @ts-ignore
+    map.getSource("trees").setData(data);
+    map.removeLayer("trees-heat");
   }
 
   map.addLayer(
     {
-      id: "earthquakes-heat",
+      id: "trees-heat",
       type: "heatmap",
-      source: "earthquakes",
-      maxzoom: 9,
+      source: "trees",
+      maxzoom: 5,
       paint: {
-        // Increase the heatmap weight based on frequency and property magnitude
-        "heatmap-weight": [
-          "interpolate",
-          ["linear"],
-          ["get", "mag"],
-          0,
-          0,
-          6,
-          1,
-        ],
-        // Increase the heatmap color weight weight by zoom level
-        // heatmap-intensity is a multiplier on top of heatmap-weight
-        "heatmap-intensity": ["interpolate", ["linear"], ["zoom"], 0, 1, 9, 3],
-        // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
-        // Begin color ramp at 0-stop with a 0-transparancy color
-        // to create a blur-like effect.
+        // increase weight as diameter breast height increases
+        "heatmap-weight": {
+          property: "amount",
+          type: "exponential",
+          stops: [
+            [1, 0],
+            [options.maxAmount, options.minAmount],
+          ],
+        },
+        // increase intensity as zoom level increases
+        "heatmap-intensity": {
+          stops: [
+            [11, 1],
+            [15, 3],
+          ],
+        },
+        // assign color values be applied to points depending on their density
         "heatmap-color": [
           "interpolate",
           ["linear"],
           ["heatmap-density"],
           0,
-          "rgba(33,102,172,0)",
+          "rgba(236,222,239,0)",
           0.2,
-          "rgb(103,169,207)",
+          "rgb(208,209,230)",
           0.4,
-          "rgb(209,229,240)",
+          "rgb(166,189,219)",
           0.6,
-          "rgb(253,219,199)",
+          "rgb(103,169,207)",
           0.8,
-          "rgb(239,138,98)",
-          1,
-          "rgb(178,24,43)",
+          "rgb(28,144,153)",
         ],
-        // Adjust the heatmap radius by zoom level
-        "heatmap-radius": ["interpolate", ["linear"], ["zoom"], 0, 2, 9, 20],
-        // Transition from heatmap to circle layer by zoom level
-        "heatmap-opacity": ["interpolate", ["linear"], ["zoom"], 7, 1, 9, 0],
+        // increase radius as zoom increases
+        "heatmap-radius": {
+          stops: [
+            [11, 15],
+            [15, 20],
+          ],
+        },
+        // decrease opacity to transition into the circle layer
+        "heatmap-opacity": {
+          default: 1,
+          stops: [
+            [14, 1],
+            [15, 0],
+          ],
+        },
       },
     },
     "waterway-label"
   );
 
-  map.addLayer(
-    {
-      id: "earthquakes-point",
-      type: "circle",
-      source: "earthquakes",
-      minzoom: 7,
-      paint: {
-        // Size circle radius by earthquake magnitude and zoom level
-        "circle-radius": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          7,
-          ["interpolate", ["linear"], ["get", "mag"], 1, 1, 6, 4],
-          16,
-          ["interpolate", ["linear"], ["get", "mag"], 1, 5, 6, 50],
-        ],
-        // Color circle by earthquake magnitude
-        "circle-color": [
-          "interpolate",
-          ["linear"],
-          ["get", "mag"],
-          1,
-          "rgba(33,102,172,0)",
-          2,
-          "rgb(103,169,207)",
-          3,
-          "rgb(209,229,240)",
-          4,
-          "rgb(253,219,199)",
-          5,
-          "rgb(239,138,98)",
-          6,
-          "rgb(178,24,43)",
-        ],
-        "circle-stroke-color": "white",
-        "circle-stroke-width": 1,
-        // Transition from heatmap to circle layer by zoom level
-        "circle-opacity": ["interpolate", ["linear"], ["zoom"], 7, 0, 8, 1],
-      },
-    },
-    "waterway-label"
-  );
+  const stopIntervalCircleRadius = Math.round(options.maxAmount / 4);
+  const stopInterval = Math.round(options.maxAmount / 7);
+  console.log({ stopInterval, stopIntervalCircleRadius });
+
+  // map.addLayer(
+  //   {
+  //     id: "trees-point",
+  //     type: "circle",
+  //     source: "trees",
+  //     minzoom: 14,
+  //     paint: {
+  //       // increase the radius of the circle as the zoom level and dbh value increases
+  //       "circle-radius": {
+  //         property: "amount",
+  //         type: "exponential",
+  //         stops: [
+  //           [{ zoom: 15, value: 1 }, stopIntervalCircleRadius],
+  //           [{ zoom: 15, value: 62 }, stopIntervalCircleRadius * 2],
+  //           [{ zoom: 22, value: 1 }, stopIntervalCircleRadius * 3],
+  //           [{ zoom: 22, value: 62 }, stopIntervalCircleRadius * 4],
+  //         ],
+  //       },
+  //       "circle-color": {
+  //         property: "amount",
+  //         type: "exponential",
+  //         stops: [
+  //           [stopInterval, "rgba(236,222,239,0)"],
+  //           [stopInterval * 2, "rgb(236,222,239)"],
+  //           [stopInterval * 3, "rgb(208,209,230)"],
+  //           [stopInterval * 4, "rgb(166,189,219)"],
+  //           [stopInterval * 5, "rgb(103,169,207)"],
+  //           [stopInterval * 6, "rgb(28,144,153)"],
+  //           [stopInterval * 7, "rgb(1,108,89)"],
+  //         ],
+  //       },
+  //       "circle-stroke-color": "white",
+  //       "circle-stroke-width": 1,
+  //       "circle-opacity": {
+  //         stops: [
+  //           [14, 0],
+  //           [15, 1],
+  //         ],
+  //       },
+  //     },
+  //   },
+  //   "waterway-label"
+  // );
 }
