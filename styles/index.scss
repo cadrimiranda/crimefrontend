@@ -1,8 +1,6 @@
 @import "./variables.scss";
 @import "./global.scss";
 
-@import "./dataCircle.scss";
-
 $zindex: 99999;
 
 .mymap {
@@ -35,42 +33,14 @@ $zindex: 99999;
   box-shadow: $box-shadow;
 }
 
-.crime-datacircle {
-  width: 80px;
-  height: 80px;
-
-  background: #ffffff;
-  border-radius: 100px;
-  box-shadow: $box-shadow;
-
-  span {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 16px;
-    text-align: center;
-    color: $font-color;
-    word-spacing: 9999px;
-  }
-
-  @media ($desktop-size) {
-    box-shadow: none;
-    border-radius: 8px;
-    width: 31%;
-    border: 1px solid $gray-color;
-  }
-}
-
-.crime-content-data {
-  padding: 1rem;
-}
-
 .crime-kpi-container {
   position: relative;
-  top: -45px;
   z-index: 999;
-  height: 50px;
   margin-bottom: 24px;
+
+  .crime-kpi-itens {
+    flex-wrap: wrap;
+  }
 
   @media ($desktop-size) {
     position: unset;
@@ -80,6 +50,42 @@ $zindex: 99999;
       min-height: 105px;
     }
   }
+}
+
+.crime-datacircle {
+  width: 45%;
+  height: 115px;
+  margin: 6px 0;
+
+  background: #ffffff;
+  border-radius: 32px;
+  box-shadow: $box-shadow;
+
+  .crime-datacircle-value {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    font-weight: bolder;
+  }
+
+  span {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    color: $font-color;
+  }
+
+  @media ($desktop-size) {
+    box-shadow: none;
+    border-radius: 8px;
+    width: 23%;
+    border: 1px solid $gray-color;
+  }
+}
+
+.crime-content-data {
+  padding: 1rem;
 }
 
 .crime-day-period {
