@@ -12,6 +12,7 @@ import { initializeMap } from "../map/initializeMap";
 import { CrimeByDayPeriod } from "../components/CrimeByDayPeriod";
 import { CrimeKpis } from "../components/CrimeKpis";
 import { Filters } from "../components/Filters";
+import { addDataLayer } from "../map/addDataLayer";
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 
 interface IMyPosition {
@@ -59,6 +60,14 @@ export default function Home() {
       mountMap(pos);
     }
   }, []);
+
+  useEffect(() => {
+    if (Map) {
+      fetch("/api/data")
+        .then((res) => res.json())
+        .then((res) => addDataLayer(Map, res));
+    }
+  }, [Map]);
 
   return (
     <div className="container">
