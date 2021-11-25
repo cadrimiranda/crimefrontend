@@ -7,6 +7,8 @@ import locale from "antd/lib/locale/pt_BR";
 import { Provider as UseFetchProvider } from "use-http";
 import { FilterProvider } from "../components/FilterProvider";
 
+import dynamic from "next/dynamic";
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ConfigProvider locale={locale}>

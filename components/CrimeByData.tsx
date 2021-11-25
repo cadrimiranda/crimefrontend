@@ -16,7 +16,7 @@ interface ICrimeByData {
   loading: boolean;
 }
 
-const LoadingGraphic = () => (
+export const LoadingGraphic = () => (
   <div className="crime-load-graph">
     <Spin />
   </div>
@@ -29,9 +29,6 @@ const CrimeByData = ({
   title,
   loading,
 }: ICrimeByData) => {
-  useEffect(() => {
-    console.log({ loading, xField });
-  }, [loading]);
   return (
     <div className="crime-card">
       <h1 className="crime-title">{title}</h1>
