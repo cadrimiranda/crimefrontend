@@ -42,8 +42,9 @@ const CrimeKpis = () => {
       <div className="crime-kpi-itens crime-pos-flex crime-pos-center-around">
         {Array.isArray(data) && !loading && data.map(getCircle)}
         {loading &&
-          [1, 2, 3, 4].map(() => (
+          [1, 2, 3, 4].map((val) => (
             <Skeleton.Button
+              key={val}
               style={{ height: "115px", width: "115px", margin: "6px 0" }}
               active
               shape="round"
