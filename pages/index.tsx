@@ -33,10 +33,6 @@ export default function Home() {
           href="https://fonts.googleapis.com/css2?family=Material+Icons"
           rel="stylesheet"
         />
-        <Script
-          type="text/javascript"
-          src="../static/heatmapLeafletPlugin.js"
-        />
       </Head>
 
       <main id="main" className="main">
@@ -66,6 +62,7 @@ export default function Home() {
           </Grid>
         </Grid>
       </main>
+      <Script type="text/javascript" src="../static/heatmapLeafletPlugin.js" />
     </div>
   );
 }
