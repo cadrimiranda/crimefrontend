@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useEffectRequester } from "../hooks/useEffectRequester";
 import { CrimeByIconPercentage } from "./CrimeByIconPercentage";
 

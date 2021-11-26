@@ -70,7 +70,7 @@ const useLeaflefMap = (mapId: string) => {
         if (e.sourceTarget._animateToZoom === 16) {
           mappedData.forEach((x) => {
             const circle = L.circle([x[0], x[1]], {
-              color: "red",
+              color: "black",
               fillColor: "#f03",
               fillOpacity: 0.2,
               radius: 1,

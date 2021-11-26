@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import Skeleton from "antd/lib/skeleton";
-import Spacer from "antd/lib/space";
 
 export type CrimeType =
   | "morning"

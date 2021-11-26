@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Grid from "@mui/material/Grid";
-import Script from "next/script";
 import { CrimeByCity } from "../components/CrimeByCity";
 import { CrimeByLocal } from "../components/CrimeByLocal";
 import { CrimeByNeighbourhood } from "../components/CrimeByNeighbourhood";
@@ -62,7 +61,6 @@ export default function Home() {
           </Grid>
         </Grid>
       </main>
-      <Script type="text/javascript" src="../static/heatmapLeafletPlugin.js" />
     </div>
   );
 }

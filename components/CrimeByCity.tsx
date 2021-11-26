@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useEffectRequester } from "../hooks/useEffectRequester";
 import { CrimeByData } from "./CrimeByData";
 
