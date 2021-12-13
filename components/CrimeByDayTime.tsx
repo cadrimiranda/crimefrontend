@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import Grid from "@mui/material/Grid";
 import Skeleton from "antd/lib/skeleton";
 
 export type CrimeType =
@@ -24,26 +25,43 @@ const CrimeByDayTime = ({
 }) => {
   const getCrimeIcon = useMemo(() => {
     if (dayTime === "morning") {
-      return "bi bi-sun";
+      return "bi bi-sun-fill";
     }
 
     if (dayTime === "afternoon") {
-      return "bi bi-sunset";
+      return "bi bi-sunset-fill";
     }
 
     if (dayTime === "dawn") {
-      return "bi bi-sunrise";
+      return "bi bi-sunrise-fill";
     }
 
     if (dayTime === "uncertain") {
-      return "bi bi-slash-circle";
+      return "bi bi-slash-circle-fill";
     }
 
-    if (dayTime === "unknow") {
-      return "bi bi-arrow-clockwise";
+    return "bi bi-moon-fill";
+  }, [dayTime]);
+
+  const getColorIcon = useMemo(() => {
+
+    if (dayTime === "dawn") {
+      return "#ffdb00";
     }
 
-    return "bi bi-moon";
+    if (dayTime === "morning") {
+      return "#ffc922";
+    }
+
+    if (dayTime === "afternoon") {
+      return "#F4D772";
+    }
+
+    if (dayTime === "uncertain") {
+      return "rgba(59, 113, 120, 0.4)";
+    }
+
+    return "#F7EAC6";
   }, [dayTime]);
 
   return (
@@ -71,12 +89,35 @@ const CrimeByDayTime = ({
           />
         </div>
       ) : (
-        <>
-          <i className={getCrimeIcon} />
-          <span className="crime-daytime-period">{period}</span>
-          <span>{crimeCount}</span>
-          <span>{`${percentage}%`}</span>
-        </>
+        <Grid container className="crime-bydaytime-grid">
+          <Grid item sm={5}>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              direction="column"
+            >
+              <i
+                style={{
+                  color: getColorIcon,
+                }}
+                className={`${getCrimeIcon} icon-day-time`}
+              />
+            </Grid>
+          </Grid>
+          <Grid item sm={7}>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              direction="column"
+              style={{ height: "100%" }}
+            >
+              <span className="crime-daytime-period">{period}</span>
+              <span>{`${crimeCount && crimeCount.toLocaleString('pt-BR')} crimes (${percentage}%)`}</span>
+            </Grid>
+          </Grid>
+        </Grid>
       )}
     </div>
   );
