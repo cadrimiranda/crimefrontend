@@ -6,10 +6,11 @@ import { CrimeByNeighbourhood } from "../components/CrimeByNeighbourhood";
 import { CrimeByStreet } from "../components/CrimeByStreet";
 import { CrimeByVehicle } from "../components/CrimeByVehicle";
 import { CrimeByDayPeriod } from "../components/CrimeByDayPeriod";
-import { CrimeKpis } from "../components/CrimeKpis";
 import { Filters } from "../components/Filters";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
+import { CrimeKpi } from "../components/CrimeKpi";
+import { RemoveMobileDesktop } from "../components/RemoveMobileDesktop";
 
 const CrimeMap = dynamic(
   () => import("../components/CrimeMap").then((res) => res) as any,
@@ -37,27 +38,45 @@ export default function Home() {
       <main id="main" className="main">
         <Filters />
         <CrimeMap />
-        <Grid container justifyContent="center" className="crime-content-data">
-          <Grid item xs={12} md={6}>
-            <CrimeKpis />
+        <Grid container spacing={1}>
+          <Grid item sm={9}>
+            <Grid item xs={12}>
+              <RemoveMobileDesktop desktopOff>
+                <CrimeKpi />
+              </RemoveMobileDesktop>
+            </Grid>
+            <Grid item xs={12}>
+              <RemoveMobileDesktop desktopOff>
+                <CrimeByDayPeriod />
+              </RemoveMobileDesktop>
+            </Grid>
+            <Grid item xs={12}>
+              <CrimeByCity />
+            </Grid>
+            <Grid item xs={12}>
+              <CrimeByStreet />
+            </Grid>
+            <Grid item xs={12}>
+              <CrimeByLocal />
+            </Grid>
+            <Grid item xs={12}>
+              <CrimeByNeighbourhood />
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <CrimeByDayPeriod />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <CrimeByCity />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <CrimeByNeighbourhood />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <CrimeByStreet />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <CrimeByLocal />
-          </Grid>
-          <Grid item xs={12}>
-            <CrimeByVehicle />
+          <Grid item sm={3}>
+            <Grid item xs={12}>
+              <RemoveMobileDesktop mobileOff>
+                <CrimeKpi />
+              </RemoveMobileDesktop>
+            </Grid>
+            <Grid item xs={12}>
+              <RemoveMobileDesktop mobileOff>
+                <CrimeByDayPeriod />
+              </RemoveMobileDesktop>
+            </Grid>
+            <Grid item xs={12}>
+              <CrimeByVehicle />
+            </Grid>
           </Grid>
         </Grid>
       </main>
