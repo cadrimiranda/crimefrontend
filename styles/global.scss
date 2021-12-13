@@ -19,12 +19,16 @@ a {
   box-sizing: border-box;
 }
 
+.container {
+  background-color: $gray-e-transparent;
+}
+
 %card {
-  box-shadow: $box-shadow;
-  border-radius: 8px;
+  outline: 1px solid $gray-color;
+  border-radius: 4px;
   background-color: white;
   padding: 1rem;
-  margin-bottom: 4rem;
+  margin: 0 10px 4rem;
   min-height: 256px;
 }
 
@@ -67,8 +71,8 @@ a {
 
 .crime-title,
 .crime-title-with-subtitle,
-.subtitle {
-  text-align: justify;
+.crime-subtitle {
+  text-align: center;
 }
 
 .crime-subtitle {
