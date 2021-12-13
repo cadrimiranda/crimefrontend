@@ -29,7 +29,6 @@ const useLeaflefMap = (mapId: string) => {
 
   useEffect(() => {
     function createMap(pos: number[]) {
-      console.log({ pos });
       var localmap = L.map("leatlef").setView([pos[0], pos[1]], 12);
       L.tileLayer(
         "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
