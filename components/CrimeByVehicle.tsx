@@ -114,7 +114,7 @@ const CrimeByVehicle = () => {
   return (
     <div className="crime-card">
       <h1 className="crime-title-with-subtitle">
-        Aqui temos a criminalidade por cada categoria de veículo
+        Criminalidade por cada categoria de veículo
       </h1>
       <h2 className="crime-subtitle">
         Clique nos icones para exibir as marcas
@@ -124,6 +124,10 @@ const CrimeByVehicle = () => {
           loading={loadingExpanded || loadingPercentage}
           dataExpand={expanded.Caminhão || []}
           icon="local_shipping"
+          amount={
+            mappedData.find((x) => x.type === EDescrTipoVeiculo.caminhao)
+              ?.quantity || 0
+          }
           qtd={
             mappedData.find((x) => x.type === EDescrTipoVeiculo.caminhao)
               ?.percentage || 0
@@ -133,6 +137,10 @@ const CrimeByVehicle = () => {
           loading={loadingExpanded || loadingPercentage}
           dataExpand={expanded.Carro || []}
           icon="directions_car"
+          amount={
+            mappedData.find((x) => x.type === EDescrTipoVeiculo.carro)
+              ?.quantity || 0
+          }
           qtd={
             mappedData.find((x) => x.type === EDescrTipoVeiculo.carro)
               ?.percentage || 0
@@ -142,6 +150,10 @@ const CrimeByVehicle = () => {
           loading={loadingExpanded || loadingPercentage}
           dataExpand={expanded.Moto || []}
           icon="two_wheeler"
+          amount={
+            mappedData.find((x) => x.type === EDescrTipoVeiculo.moto)
+              ?.quantity || 0
+          }
           qtd={
             mappedData.find((x) => x.type === EDescrTipoVeiculo.moto)
               ?.percentage || 0

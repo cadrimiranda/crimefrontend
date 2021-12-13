@@ -11,6 +11,7 @@ export type TDataExpand = {
 interface ICrimeByIconPercentage {
   icon: string;
   qtd: number;
+  amount: number;
   dataExpand: TDataExpand[];
   loading: boolean;
 }
@@ -19,6 +20,7 @@ const CrimeByIconPercentage = ({
   icon,
   qtd,
   dataExpand,
+  amount,
   loading,
 }: ICrimeByIconPercentage) => {
   const [open, setOpen] = useState(false);
@@ -59,16 +61,20 @@ const CrimeByIconPercentage = ({
       }}
       className="crime-button-icon-percentage crime-non-button crime-pos-flex crime-pos-column"
     >
-      <span className="material-icons">{icon}</span>
-      {loading ? (
-        <Skeleton.Button
-          active
-          style={{ marginBottom: "8px", width: "150px" }}
-          shape="round"
-        />
-      ) : (
-        <span className="crime-button-icon-percentage-text">{`${qtd}%`}</span>
-      )}
+      <div className="crime-button-icon-percentage-header crime-pos-flex crime-pos-center-around">
+        <span className="material-icons">{icon}</span>
+        {loading ? (
+          <Skeleton.Button
+            active
+            style={{ marginBottom: "8px", width: "150px" }}
+            shape="round"
+          />
+        ) : (
+          <span className="crime-button-icon-percentage-text">{`${amount.toLocaleString(
+            "pt-BR"
+          )} (${qtd})%`}</span>
+        )}
+      </div>
       <ul
         ref={(ref) => {
           ref && setListHeight(ref.clientHeight);
@@ -77,6 +83,7 @@ const CrimeByIconPercentage = ({
       >
         {dataExpand
           .filter((x) => x.percentage > 0)
+          .slice(0, 15)
           .map((x) => (
             <li className="crime-list-item" key={x.qtd}>
               <span className="crime-list-item-name">{`${x.name}: `}</span>
