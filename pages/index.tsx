@@ -37,46 +37,48 @@ export default function Home() {
 
       <main id="main" className="main">
         <Filters />
-        <CrimeMap />
-        <Grid container spacing={1}>
+        <RemoveMobileDesktop desktopOff>
+          <CrimeMap />
+        </RemoveMobileDesktop>
+        <Grid className="main-grid" container spacing={1}>
           <Grid item sm={9}>
-            <Grid item xs={12}>
-              <RemoveMobileDesktop desktopOff>
-                <CrimeKpi />
-              </RemoveMobileDesktop>
-            </Grid>
-            <Grid item xs={12}>
-              <RemoveMobileDesktop desktopOff>
-                <CrimeByDayPeriod />
-              </RemoveMobileDesktop>
-            </Grid>
+            <RemoveMobileDesktop mobileOff>
+              <Grid item xs={12}>
+                <CrimeMap />
+              </Grid>
+            </RemoveMobileDesktop>
             <Grid item xs={12}>
               <CrimeByCity />
             </Grid>
             <Grid item xs={12}>
               <CrimeByStreet />
             </Grid>
-            <Grid item xs={12}>
-              <CrimeByLocal />
-            </Grid>
-            <Grid item xs={12}>
-              <CrimeByNeighbourhood />
-            </Grid>
           </Grid>
           <Grid item sm={3}>
-            <Grid item xs={12}>
-              <RemoveMobileDesktop mobileOff>
+            <Grid
+              container
+              style={{ height: "100%" }}
+              justifyContent="space-around"
+              alignContent="space-between"
+            >
+              <Grid item xs={12}>
                 <CrimeKpi />
-              </RemoveMobileDesktop>
-            </Grid>
-            <Grid item xs={12}>
-              <RemoveMobileDesktop mobileOff>
+              </Grid>
+              <Grid item xs={12}>
                 <CrimeByDayPeriod />
-              </RemoveMobileDesktop>
+              </Grid>
+              <Grid item xs={12}>
+                <CrimeByVehicle />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <CrimeByVehicle />
-            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item sm={6}>
+            <CrimeByLocal />
+          </Grid>
+          <Grid item sm={6}>
+            <CrimeByNeighbourhood />
           </Grid>
         </Grid>
       </main>
