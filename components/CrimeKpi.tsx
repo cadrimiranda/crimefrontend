@@ -1,9 +1,10 @@
 import { useEffectRequester } from "../hooks/useEffectRequester";
 import { useFilterContext } from "./FilterProvider";
-import { CrimeEnum } from "./Filters";
+import { CrimeEnum } from "./FiltersForm";
 import { PieConfig } from "@ant-design/charts";
 import dynamic from "next/dynamic";
 import { useCallback } from "react";
+import Skeleton from "antd/lib/skeleton";
 
 const Pie = dynamic<PieConfig>(
   () => import("@ant-design/charts").then((mod) => mod.Pie) as any,
@@ -16,7 +17,7 @@ type TResponse = {
 };
 
 type TData = {
-  [key in CrimeEnum]: number;
+  [key in CrimeEnum]: string;
 };
 
 const CrimeKpi = () => {
@@ -45,7 +46,10 @@ const CrimeKpi = () => {
     "/get_amount_crime",
     (res) =>
       res.reduce(
-        (acc, next) => ({ ...acc, [next.TYPE]: next.AMOUNT }),
+        (acc, next) => ({
+          ...acc,
+          [next.TYPE]: next.AMOUNT.toLocaleString("pt-BR"),
+        }),
         {} as TData
       )
   );
@@ -77,24 +81,48 @@ const CrimeKpi = () => {
           <tbody>
             <tr>
               <td className="td-data td-data-left">
-                {mappedData[CrimeEnum.btnFurtoVeiculo] || ""}
+                {mappedData[CrimeEnum.btnFurtoVeiculo] || (
+                  <Skeleton.Button
+                    active
+                    style={{ width: "80px" }}
+                    shape="round"
+                  />
+                )}
               </td>
               <td className="td-icon">
                 <span className="material-icons icon-car">directions_car</span>
               </td>
               <td className="td-data td-data-right">
-                {mappedData[CrimeEnum.btnRouboVeiculo] || ""}
+                {mappedData[CrimeEnum.btnRouboVeiculo] || (
+                  <Skeleton.Button
+                    active
+                    style={{ width: "80px" }}
+                    shape="round"
+                  />
+                )}
               </td>
             </tr>
             <tr>
               <td className="td-data td-data-left">
-                {mappedData[CrimeEnum.btnFurtoCelular] || ""}
+                {mappedData[CrimeEnum.btnFurtoCelular] || (
+                  <Skeleton.Button
+                    active
+                    style={{ width: "80px" }}
+                    shape="round"
+                  />
+                )}
               </td>
               <td className="td-icon">
                 <span className="material-icons icon-wheel">two_wheeler</span>
               </td>
               <td className="td-data td-data-right">
-                {mappedData[CrimeEnum.btnRouboCelular] || ""}
+                {mappedData[CrimeEnum.btnRouboCelular] || (
+                  <Skeleton.Button
+                    active
+                    style={{ width: "80px" }}
+                    shape="round"
+                  />
+                )}
               </td>
             </tr>
           </tbody>
