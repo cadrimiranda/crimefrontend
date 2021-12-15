@@ -8,18 +8,22 @@ $zindex: 99999;
   font-size: 3.2rem;
 }
 
-.mymap {
-  position: relative;
+.mymap,
+.leatlef-map {
   height: 550px;
-  margin-bottom: 4rem;
-  margin-top: 20px;
+  position: relative;
+}
 
+.crime-card,
+.mymap {
+  margin: 0px 10px 4rem;
   @media ($desktop-size) {
-    padding: 0 20px;
-    border-radius: 16px;
-    min-width: 300px;
-    margin-bottom: 0;
+    margin: 20px 20px 0px;
   }
+}
+
+.mymap {
+  margin-top: 20px;
 }
 
 .container {
@@ -36,16 +40,22 @@ $zindex: 99999;
 }
 
 .dropdown-overlay,
-.crime-filter-container {
+.filters {
   z-index: $zindex;
 }
 
-.crime-filter-container {
-  position: sticky;
+.filters {
   top: 0;
+  position: sticky;
+
+  @media ($desktop-size) {
+    box-shadow: $box-shadow;
+  }
+}
+
+.crime-filter-container {
   padding: 5px 20px 10px;
   background-color: white;
-  box-shadow: $box-shadow;
 }
 
 .crime-kpi-container {
@@ -83,10 +93,6 @@ $zindex: 99999;
           font-size: 1rem;
           color: $gray-dark;
         }
-      }
-
-      .material-icons {
-        padding-right: 5px;
       }
     }
   }
@@ -210,13 +216,9 @@ $zindex: 99999;
   }
 
   @media ($desktop-size) {
-    min-width: 350px;
-  }
-
-  @media (min-width: 600px) {
     margin: 0;
     margin-bottom: 24px;
-    width: 28%;
+    width: 80%;
   }
 
   .crime-button-icon-percentage-header {
@@ -286,6 +288,11 @@ $zindex: 99999;
     flex-direction: column;
   }
 }
+@media ($mobile-size) {
+  .main-grid {
+    flex-direction: column-reverse;
+  }
+}
 
 .crime-load-graph {
   position: absolute;
@@ -296,4 +303,85 @@ $zindex: 99999;
   justify-content: center;
   background-color: rgba(255, 255, 255, 0.85);
   z-index: 500;
+  padding: 0 20px;
+}
+
+.mobile-menu-wrapper {
+  width: 100vw;
+  background-color: white;
+  box-shadow: $box-shadow;
+  padding: 4px;
+  position: sticky;
+  z-index: 1100;
+  top: 0;
+
+  .filter-menu-button {
+    margin: 4px;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+
+    &:active,
+    &:focus {
+      box-shadow: $box-shadow;
+      outline: 1px solid $gray-e;
+      border-radius: 4px;
+    }
+
+    .material-icons {
+      font-size: 2.5rem;
+    }
+  }
+
+  .menu-wrapper,
+  .menu {
+    transition: width 1s;
+  }
+
+  .menu-wrapper {
+    z-index: 1099;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    .menu-wrapper-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    .menu {
+      height: 100vh;
+      z-index: 1100;
+      box-shadow: $box-shadow;
+      background: white;
+      overflow: hidden;
+      position: absolute;
+    }
+  }
+
+  .menu-open {
+    width: 100vw;
+    height: 100vh;
+    .menu-wrapper-backdrop {
+      width: 100vw;
+      height: 100vh;
+    }
+    .menu {
+      width: 85%;
+    }
+  }
+
+  .menu-closed {
+    width: 0;
+    height: 0;
+    .menu-wrapper-backdrop {
+      width: 0;
+      height: 0;
+    }
+    .menu {
+      width: 0%;
+    }
+  }
 }

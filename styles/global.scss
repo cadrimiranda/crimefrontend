@@ -32,25 +32,26 @@ a {
   min-height: 256px;
 }
 
-.crime-card {
-  @extend %card;
-
+.hidden-desktop {
   @media ($desktop-size) {
-    margin: 20px;
+    display: none;
+    visibility: hidden;
   }
 }
 
-.crime-card-only-desktop {
-  @extend %card;
-  margin: 20px;
-
+.hidden-mobile {
   @media ($mobile-size) {
-    box-shadow: none;
-    border-radius: 0;
-    background-color: transparent;
-    padding: 0;
-    margin: 0;
+    display: none;
+    visibility: hidden;
   }
+}
+
+.crime-card {
+  outline: 1px solid $gray-color;
+  border-radius: 4px;
+  background-color: white;
+  padding: 1rem;
+  min-height: 256px;
 }
 
 .crime-title,
@@ -127,6 +128,10 @@ a {
 .crime-pos-center-around {
   align-items: center;
   justify-content: space-around;
+}
+
+.crime-pos-right {
+  justify-content: flex-end;
 }
 
 .crime-pos-column {
