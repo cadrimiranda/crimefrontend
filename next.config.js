@@ -1,8 +1,18 @@
-const path = require('path');
+const path = require("path");
+const withLess = require("next-with-less");
 
-module.exports = {
+module.exports = withLess({
   sassOptions: {
-    includePaths: [path.join(__dirname, 'components'), path.join(__dirname, 'scss')]
+    includePaths: [
+      path.join(__dirname, "components"),
+      path.join(__dirname, "scss"),
+    ],
   },
-  reactStrictMode: true,
-}
+  lessLoaderOptions: {
+    lessOptions: {
+      modifyVars: {
+        "primary-color": "#9900FF",
+      },
+    },
+  }
+});
