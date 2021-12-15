@@ -41,6 +41,7 @@ const CrimeByData = ({
           yField={yField}
           xAxis={{ label: { autoRotate: true } }}
           scrollbar={{ type: "horizontal" }}
+          color="#3b7178"
           columnStyle={{
             lineWidth: 10,
             width: 10,
