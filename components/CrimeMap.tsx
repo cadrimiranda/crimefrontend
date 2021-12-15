@@ -7,7 +7,7 @@ const CrimeMap = () => {
   return (
     <div className="mymap">
       {loading && <LoadingGraphic />}
-      <div className="mymap" id="leatlef" />
+      <div className="leatlef-map" id="leatlef" />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { useEffectRequester } from "../hooks/useEffectRequester";
 import { CrimeByDayTime, CrimeType } from "./CrimeByDayTime";
-import { PeriodoOcorrenciaEnum } from "./Filters";
+import { PeriodoOcorrenciaEnum } from "./FiltersForm";
 
 type TResponse = {
   PERIDOOCORRENCIA: PeriodoOcorrenciaEnum;
