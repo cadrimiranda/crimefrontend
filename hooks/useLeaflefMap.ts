@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TypeCrime } from "../components/Filters";
+import { TypeCrime } from "../components/FiltersForm";
 import { useEffectRequester } from "./useEffectRequester";
 import L from "leaflet";
 import { heatLayer, HeatCLassLayer } from "../static/heatmapLeafletPlugin";
