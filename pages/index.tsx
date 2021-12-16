@@ -11,6 +11,7 @@ import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
 import { CrimeKpi } from "../components/CrimeKpi";
 import { RemoveMobileDesktop } from "../components/RemoveMobileDesktop";
+import { Footer } from "../components/Footer";
 
 const CrimeMap = dynamic(
   () => import("../components/CrimeMap").then((res) => res) as any,
@@ -82,6 +83,7 @@ export default function Home() {
           </Grid>
         </Grid>
       </main>
+      <Footer />
     </div>
   );
 }

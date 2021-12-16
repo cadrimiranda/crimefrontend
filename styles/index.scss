@@ -22,6 +22,12 @@ $zindex: 99999;
   }
 }
 
+.margin-bottom {
+  @media ($desktop-size) {
+    margin-bottom: 20px;
+  }
+}
+
 .mymap {
   margin-top: 20px;
 }
@@ -382,6 +388,91 @@ $zindex: 99999;
     }
     .menu {
       width: 0%;
+    }
+  }
+}
+
+.crime-footer {
+  width: 100%;
+  margin-top: 4rem;
+  background-color: $gray-e;
+  padding: 40px 20px 10px;
+  display: flex;
+  flex-wrap: wrap;
+
+  @media ($desktop-size) {
+    height: 300px;
+    padding: 0 12%;
+  }
+
+  .crime-profile-card {
+    border: 2px solid $gray-d;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    width: 90%;
+
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    @media ($desktop-size) {
+      margin-bottom: 0;
+      width: 45%;
+      &:first-child {
+        margin-right: 80px;
+      }
+    }
+
+    .profile-social {
+      margin-bottom: 20px;
+
+      @media ($desktop-size) {
+        margin-bottom: 0;
+      }
+    }
+
+    .ant-avatar {
+      width: 90px;
+      height: 90px;
+    }
+
+    .profile-name {
+      font-weight: bold;
+      font-size: 1.05rem;
+      letter-spacing: 1.25px;
+      margin: 8px 0;
+      color: $gray-e;
+    }
+
+    .footer-profile-description {
+      letter-spacing: 1.1px;
+      text-align: justify;
+      color: $gray-dark;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .icon-button {
+      border: none;
+      background-color: transparent;
+      font-size: 24px;
+      margin-right: 5%;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        transform: scale(1.2);
+        outline: none;
+      }
     }
   }
 }
