@@ -20,6 +20,7 @@ const CrimeByLocal = () => {
 
   return (
     <CrimeByData
+      classes="margin-bottom"
       loading={loading}
       data={mappedData}
       xField="Local"
